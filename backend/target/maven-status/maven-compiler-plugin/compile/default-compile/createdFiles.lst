@@ -1,0 +1,3 @@
+com\sistema\compras\SistemaComprasApplication.class
+com\sistema\compras\entity\Compra.class
+com\sistema\compras\entity\Comercio.class

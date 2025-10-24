@@ -1,0 +1,145 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Sistema de Compras</h1>
+
+  <!-- Filtros -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5>Filtros de Búsqueda</h5>
+    </div>
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-3">
+          <label for="comercioId" class="form-label">Comercio</label>
+          <select class="form-select" id="comercioId" [(ngModel)]="filtroComercioId" name="comercioId">
+            <option value="">Todos los comercios</option>
+            <option *ngFor="let comercio of comercios" [value]="comercio.id">{{comercio.nombre}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="medioPago" class="form-label">Medio de Pago</label>
+          <select class="form-select" id="medioPago" [(ngModel)]="filtroMedioPago" name="medioPago">
+            <option value="">Todos</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="Plazos">Plazos</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+          <input type="datetime-local" class="form-control" id="fechaInicio" [(ngModel)]="filtroFechaInicio" name="fechaInicio">
+        </div>
+        <div class="col-md-2">
+          <label for="fechaFin" class="form-label">Fecha Fin</label>
+          <input type="datetime-local" class="form-control" id="fechaFin" [(ngModel)]="filtroFechaFin" name="fechaFin">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">&nbsp;</label>
+          <div>
+            <button type="button" class="btn btn-primary me-2" (click)="filtrarCompras()">Buscar</button>
+            <button type="button" class="btn btn-secondary" (click)="limpiarFiltros()">Limpiar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de Compras -->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5>Lista de Compras</h5>
+      <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#compraModal" (click)="prepararNuevaCompra()">
+        Nueva Compra
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Comercio</th>
+              <th>Comprador</th>
+              <th>Medio de Pago</th>
+              <th>Monto Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let compra of compras">
+              <td>{{compra.id}}</td>
+              <td>{{compra.fecha | date:'dd/MM/yyyy HH:mm'}}</td>
+              <td>{{compra.comercio?.nombre}}</td>
+              <td>{{compra.comprador}}</td>
+              <td>
+                <span class="badge" [ngClass]="getBadgeClass(compra.medioPago)">
+                  {{compra.medioPago}}
+                </span>
+              </td>
+              <td>${{compra.montoTotal | number:'1.2-2'}}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary me-1" (click)="editarCompra(compra)">Editar</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminarCompra(compra.id)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mensaje cuando no hay compras -->
+      <div *ngIf="compras.length === 0" class="text-center text-muted mt-3">
+        No se encontraron compras con los criterios de búsqueda.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Crear/Editar Compra -->
+<div class="modal fade" id="compraModal" tabindex="-1" aria-labelledby="compraModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="compraModalLabel">{{esEdicion ? 'Editar Compra' : 'Nueva Compra'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #compraForm="ngForm">
+          <div class="mb-3">
+            <label for="modalComercioId" class="form-label">Comercio *</label>
+            <select class="form-select" id="modalComercioId" [(ngModel)]="compraActual.comercio.id" name="comercioId" required>
+              <option value="">Seleccione un comercio</option>
+              <option *ngFor="let comercio of comercios" [value]="comercio.id">{{comercio.nombre}}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="modalFecha" class="form-label">Fecha *</label>
+            <input type="datetime-local" class="form-control" id="modalFecha" [(ngModel)]="compraActual.fecha" name="fecha" required>
+          </div>
+          <div class="mb-3">
+            <label for="modalComprador" class="form-label">Comprador *</label>
+            <input type="text" class="form-control" id="modalComprador" [(ngModel)]="compraActual.comprador" name="comprador" required maxlength="255">
+          </div>
+          <div class="mb-3">
+            <label for="modalMedioPago" class="form-label">Medio de Pago *</label>
+            <select class="form-select" id="modalMedioPago" [(ngModel)]="compraActual.medioPago" name="medioPago" required>
+              <option value="">Seleccione medio de pago</option>
+              <option value="Efectivo">Efectivo</option>
+              <option value="Tarjeta">Tarjeta</option>
+              <option value="Plazos">Plazos</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="modalMontoTotal" class="form-label">Monto Total *</label>
+            <input type="number" class="form-control" id="modalMontoTotal" [(ngModel)]="compraActual.montoTotal" name="montoTotal" required min="0.01" step="0.01">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarCompra()" [disabled]="!compraForm.form.valid">
+          {{esEdicion ? 'Actualizar' : 'Crear'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
