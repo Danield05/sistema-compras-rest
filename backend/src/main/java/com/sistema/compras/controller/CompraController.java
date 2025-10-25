@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sistema.compras.entity.Compra;
+import com.sistema.compras.entity.CompraDTO;
 import com.sistema.compras.service.CompraService;
 
 import jakarta.validation.Valid;
@@ -34,8 +35,8 @@ public class CompraController {
 
     // Obtener todas las compras
     @GetMapping
-    public ResponseEntity<List<Compra>> getAllCompras() {
-        List<Compra> compras = compraService.findAll();
+    public ResponseEntity<List<CompraDTO>> getAllCompras() {
+        List<CompraDTO> compras = compraService.findAllDTOs();
         return ResponseEntity.ok(compras);
     }
 

@@ -76,7 +76,6 @@ yarn-error.log*
 # Angular
 dist/
 tmp/
-app/
 .angular/
 coverage/
 

@@ -1,3 +1,8 @@
 com\sistema\compras\SistemaComprasApplication.class
+com\sistema\compras\service\CompraService.class
+com\sistema\compras\controller\CompraController.class
+com\sistema\compras\repository\CompraRepository.class
+com\sistema\compras\repository\ComercioRepository.class
+com\sistema\compras\entity\CompraDTO.class
 com\sistema\compras\entity\Compra.class
 com\sistema\compras\entity\Comercio.class
