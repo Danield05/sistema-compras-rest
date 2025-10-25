@@ -1,0 +1,111 @@
+# Sistema de Compras REST API - Lista de Dependencias
+# ===================================================
+
+# DEPENDENCIAS DEL SISTEMA OPERATIVO
+# ===================================
+
+# Java JDK 17 (OpenJDK recomendado)
+# Descargar desde: https://adoptium.net/temurin/releases/
+
+# Node.js 18+ LTS
+# Descargar desde: https://nodejs.org/
+
+# Microsoft SQL Server Express 2019+
+# Descargar desde: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+
+# Maven 3.6+
+# Viene incluido con algunas instalaciones de Java, o descargar desde: https://maven.apache.org/
+
+# DEPENDENCIAS DEL BACKEND (Java/Spring Boot)
+# ============================================
+
+# Spring Boot Starter Parent (3.2.0)
+# - Gestiona versiones de todas las dependencias de Spring Boot
+
+# Dependencias principales incluidas en pom.xml:
+# - spring-boot-starter-web (3.2.0) - Para APIs REST
+# - spring-boot-starter-data-jpa (3.2.0) - Para ORM y base de datos
+# - spring-boot-starter-validation (3.2.0) - Para validación de datos
+# - spring-boot-devtools (3.2.0) - Para desarrollo (opcional)
+# - mssql-jdbc - Driver JDBC para SQL Server
+# - jackson-annotations - Para serialización JSON
+
+# DEPENDENCIAS DEL FRONTEND (Angular/Node.js)
+# ============================================
+
+# Angular CLI (17.x)
+# npm install -g @angular/cli@17
+
+# Dependencias principales incluidas en package.json:
+# - @angular/core: ^17.0.0
+# - @angular/common: ^17.0.0
+# - @angular/compiler: ^17.0.0
+# - @angular/platform-browser: ^17.0.0
+# - @angular/platform-browser-dynamic: ^17.0.0
+# - @angular/forms: ^17.0.0
+# - @angular/router: ^17.0.0
+# - @angular/animations: ^17.0.0
+# - rxjs: ~7.8.0
+# - tslib: ^2.3.0
+# - zone.js: ~0.14.2
+# - bootstrap: ^5.3.0
+# - @angular/localize: ^17.0.0
+
+# Dependencias de desarrollo:
+# - @angular-devkit/build-angular: ^17.0.0
+# - @angular/cli: ^17.0.0
+# - @angular/compiler-cli: ^17.0.0
+# - @types/jasmine: ~5.1.0
+# - jasmine-core: ~5.1.0
+# - karma: ~6.4.0
+# - karma-chrome-launcher: ~3.2.0
+# - karma-coverage: ~2.2.0
+# - karma-jasmine: ~5.1.0
+# - karma-jasmine-html-reporter: ~2.1.0
+# - typescript: ~5.2.0
+
+# INSTRUCCIONES DE INSTALACIÓN RÁPIDA
+# ====================================
+
+# 1. Verificar versiones instaladas:
+# java -version  # Debe ser 17+
+# node -v        # Debe ser 18+
+# npm -v         # Debe ser 9+
+# mvn -version   # Debe ser 3.6+
+
+# 2. Instalar dependencias del backend:
+# cd backend
+# mvn clean install
+
+# 3. Instalar dependencias del frontend:
+# cd frontend
+# npm install
+
+# 4. Instalar Angular CLI globalmente (opcional):
+# npm install -g @angular/cli@17
+
+# NOTAS ADICIONALES
+# =================
+
+# - Todas las dependencias del backend se gestionan automáticamente por Maven
+# - Las dependencias del frontend se instalan con npm install
+# - El proyecto incluye configuración CORS para desarrollo local
+# - La base de datos requiere configuración previa (ver database/script.sql)
+# - Puerto del backend: 8082 (configurable en application.properties)
+# - Puerto del frontend: 4200 (desarrollo) / configurable para producción
+
+# URLs DE ACCESO
+# ===============
+
+# Aplicación completa (Frontend + Backend):
+# http://localhost:4200
+
+# API Backend (endpoints REST):
+# http://localhost:8082/api/compras
+# http://localhost:8082/api/comercios
+
+# Base de datos:
+# Instancia: LAPTOP-LH6S993U\SQLEXPRESS
+# Base de datos: SistemaCompras
+# Usuario: sa
+# Contraseña: Admin123456

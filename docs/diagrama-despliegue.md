@@ -2,44 +2,59 @@
 
 ## Arquitectura General
 
+El sistema sigue una arquitectura de tres capas: **Cliente Web**, **Servidor de Aplicaciones** y **Base de Datos**, con comunicación REST entre capas.
+
 ```
-[Cliente Web Browser] <--- HTTP/HTTPS ---> [Servidor Web Angular]
-                                               |
-                                               | HTTP/REST API
-                                               v
-[Backend Spring Boot] <--- JDBC ---> [Microsoft SQL Server Express]
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│ Cliente Web     │       │ Backend API     │       │ Base de Datos   │
+│ (Angular SPA)   │◄─────►│ (Spring Boot)   │◄─────►│ (SQL Server)    │
+│                 │       │                 │       │                 │
+│ - HTML/CSS/JS   │ HTTP  │ - REST API      │ JDBC  │ - Tablas        │
+│ - Bootstrap UI  │       │ - DTOs          │       │ - Relaciones    │
+│ - RxJS          │       │ - Validación    │       │ - Índices       │
+└─────────────────┘       └─────────────────┘       └─────────────────┘
+       │                           │                           │
+       └───────────────────────────┼───────────────────────────┘
+                                   │
+                    Puerto 4200    │    Puerto 8082
 ```
 
 ## Componentes del Sistema
 
-### 1. Cliente Frontend (Angular)
-- **Tecnología**: Angular 17 (Standalone Components)
+### 1. Cliente Frontend (Angular SPA)
+- **Tecnología**: Angular 17 con Standalone Components
 - **Puerto**: 4200 (desarrollo), 80/443 (producción)
+- **Arquitectura**: Single Page Application (SPA)
 - **Funcionalidades**:
-  - Interfaz de usuario para gestión de compras
-  - Formularios de creación/edición de compras
-  - Filtros de búsqueda por comercio, fecha y medio de pago
-  - Tabla responsive para mostrar compras
-  - Modales para operaciones CRUD
+  - **Interfaz de usuario**: Bootstrap 5.3 responsive
+  - **Gestión de compras**: CRUD completo con formularios
+  - **Filtros avanzados**: Por comercio, fecha y medio de pago
+  - **Validación**: Template-driven forms con feedback visual
+  - **Estado**: Gestión reactiva con RxJS
+  - **Comunicación**: HTTP Client con interceptores
 
 ### 2. Backend API (Spring Boot)
 - **Tecnología**: Spring Boot 3.2.0 con Java 17
-- **Puerto**: 8080
+- **Puerto**: 8082 (configurado)
+- **Arquitectura**: Capas Controller-Service-Repository
 - **Funcionalidades**:
-  - API REST para operaciones CRUD de compras
-  - Validación de datos
-  - Manejo de errores
-  - CORS habilitado para frontend
-  - Documentación de API (Swagger opcional)
+  - **API REST**: Endpoints para compras y comercios
+  - **DTOs**: Transferencia de datos optimizada
+  - **Validación**: Bean Validation con Hibernate Validator
+  - **CORS**: Configurado para desarrollo local
+  - **Manejo de errores**: Respuestas HTTP apropiadas
+  - **Documentación**: Endpoints detallados (Swagger opcional)
 
-### 3. Base de Datos
-- **Tecnología**: Microsoft SQL Server Express
+### 3. Base de Datos (SQL Server Express)
+- **Tecnología**: Microsoft SQL Server Express 2019+
 - **Instancia**: LAPTOP-LH6S993U\SQLEXPRESS
-- **Base de datos**: SistemaCompras
+- **Base de datos**: SistemaCompras (creada automáticamente)
 - **Características**:
-  - Tablas: Comercio, Compra
-  - Relación 1:N (Comercio -> Compras)
-  - Índices para optimización de consultas
+  - **Esquema**: 2 tablas con relación 1:N
+  - **Integridad**: Foreign keys y constraints
+  - **Índices**: Optimizados para consultas frecuentes
+  - **Datos iniciales**: Script SQL incluido
+  - **Conexión**: JDBC con configuración de seguridad
 
 ## Diagrama de Despliegue Detallado
 
@@ -112,6 +127,8 @@
 ```bash
 cd backend
 mvn clean install
+mvn spring-boot:run
+# O alternativamente:
 java -jar target/sistema-compras-backend-1.0-SNAPSHOT.jar
 ```
 

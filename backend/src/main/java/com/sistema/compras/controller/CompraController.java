@@ -50,23 +50,16 @@ public class CompraController {
 
     // Crear una nueva compra
     @PostMapping
-    public ResponseEntity<Compra> createCompra(@Valid @RequestBody Compra compra) {
-        Compra savedCompra = compraService.save(compra);
+    public ResponseEntity<CompraDTO> createCompra(@Valid @RequestBody CompraDTO compraDTO) {
+        CompraDTO savedCompra = compraService.saveFromDTO(compraDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCompra);
     }
 
     // Actualizar una compra existente
     @PutMapping("/{id}")
-    public ResponseEntity<Compra> updateCompra(@PathVariable Long id, @Valid @RequestBody Compra compraDetails) {
-        Optional<Compra> existingCompra = compraService.findById(id);
-        if (existingCompra.isPresent()) {
-            Compra compra = existingCompra.get();
-            compra.setFecha(compraDetails.getFecha());
-            compra.setMedioPago(compraDetails.getMedioPago());
-            compra.setComprador(compraDetails.getComprador());
-            compra.setMontoTotal(compraDetails.getMontoTotal());
-            compra.setComercio(compraDetails.getComercio());
-            Compra updatedCompra = compraService.save(compra);
+    public ResponseEntity<CompraDTO> updateCompra(@PathVariable Long id, @Valid @RequestBody CompraDTO compraDTO) {
+        CompraDTO updatedCompra = compraService.updateFromDTO(id, compraDTO);
+        if (updatedCompra != null) {
             return ResponseEntity.ok(updatedCompra);
         } else {
             return ResponseEntity.notFound().build();

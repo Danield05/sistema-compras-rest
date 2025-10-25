@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sistema.compras.entity.Comercio;
 import com.sistema.compras.entity.Compra;
 import com.sistema.compras.entity.CompraDTO;
 import com.sistema.compras.repository.CompraRepository;
@@ -66,5 +67,39 @@ public class CompraService {
                 compra.getComercio().getId(),
                 compra.getComercio().getNombre()
         );
+    }
+
+    public CompraDTO saveFromDTO(CompraDTO compraDTO) {
+        Compra compra = convertFromDTO(compraDTO);
+        Compra savedCompra = save(compra);
+        return convertToDTO(savedCompra);
+    }
+
+    public CompraDTO updateFromDTO(Long id, CompraDTO compraDTO) {
+        Optional<Compra> existingCompra = findById(id);
+        if (existingCompra.isPresent()) {
+            Compra compra = existingCompra.get();
+            compra.setFecha(compraDTO.getFecha());
+            compra.setMedioPago(compraDTO.getMedioPago());
+            compra.setComprador(compraDTO.getComprador());
+            compra.setMontoTotal(compraDTO.getMontoTotal());
+            // El comercio no se cambia en update, se mantiene el existente
+            Compra updatedCompra = save(compra);
+            return convertToDTO(updatedCompra);
+        }
+        return null;
+    }
+
+    private Compra convertFromDTO(CompraDTO compraDTO) {
+        Compra compra = new Compra();
+        compra.setFecha(compraDTO.getFecha());
+        compra.setMedioPago(compraDTO.getMedioPago());
+        compra.setComprador(compraDTO.getComprador());
+        compra.setMontoTotal(compraDTO.getMontoTotal());
+        // Necesitamos obtener el comercio por ID
+        Comercio comercio = new Comercio();
+        comercio.setId(compraDTO.getComercioId());
+        compra.setComercio(comercio);
+        return compra;
     }
 }

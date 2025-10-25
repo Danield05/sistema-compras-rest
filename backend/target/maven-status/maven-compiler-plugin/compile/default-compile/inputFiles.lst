@@ -3,6 +3,7 @@ C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\co
 C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\entity\Comercio.java
 C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\SistemaComprasApplication.java
 C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\service\CompraService.java
+C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\config\CorsConfig.java
 C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\controller\CompraController.java
 C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\repository\CompraRepository.java
 C:\Users\jos_d\Desktop\sistema-compras-rest\backend\src\main\java\com\sistema\compras\controller\ComercioController.java
