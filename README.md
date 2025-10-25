@@ -88,11 +88,13 @@ cd sistema-compras-rest
     spring.datasource.url=jdbc:sqlserver://LAPTOP-LH6S993U\\SQLEXPRESS;databaseName=SistemaCompras;encrypt=true;trustServerCertificate=false
     ```
 3. Compilar y ejecutar:
-    ```bash
-    mvn clean install
-    mvn spring-boot:run
-    ```
-    El backend estará disponible en `http://localhost:8082` (puerto configurado)
+```bash
+mvn clean install
+mvn spring-boot:run
+# O alternativamente desde el directorio raíz:
+# mvn -f backend/pom.xml spring-boot:run
+```
+El backend estará disponible en `http://localhost:8082` (puerto configurado)
 
 ### 4. Configurar el Frontend
 1. Navegar al directorio frontend:

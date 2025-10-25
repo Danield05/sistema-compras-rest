@@ -1,0 +1,38 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.java text
+*.ts text
+*.html text
+*.css text
+*.json text
+*.xml text
+*.md text
+*.sql text
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.jar binary
+*.war binary
+*.ear binary
+*.class binary
+
+# Force the language detection for Angular/TypeScript files
+*.ts linguist-language=TypeScript
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+*.scss linguist-language=SCSS
+
+# Force Java detection
+*.java linguist-language=Java
+
+# Force documentation detection
+*.md linguist-language=Markdown
+README.md linguist-documentation=false
