@@ -6,10 +6,6 @@ Sistema completo para la gestión de compras en comercios, desarrollado con Spri
 
 **URL del repositorio**: https://github.com/Danield05/sistema-compras-rest.git
 
-```bash
-git clone https://github.com/Danield05/sistema-compras-rest.git
-cd sistema-compras-rest
-```
 
 ##  Características
 
@@ -69,14 +65,14 @@ cd sistema-compras-rest
 
 ### 1. Clonar el repositorio
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/Danield05/sistema-compras-rest.git
 cd sistema-compras-rest
 ```
 
 ### 2. Configurar la Base de Datos
 1. Ejecutar el script SQL en Microsoft SQL Server Management Studio:
    ```sql
-   -- Archivo: database/script.sql
+   -- Ruta: database/script.sql
    ```
 2. Verificar la conexión con la instancia `LAPTOP-LH6S993U\SQLEXPRESS`
 
