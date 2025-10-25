@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CompraService, Compra } from './compra.service';
+import { CompraService, Compra, Comercio } from './compra.service';
 
 @Component({
   selector: 'app-compra-list',
@@ -19,15 +19,14 @@ import { CompraService, Compra } from './compra.service';
           <h3>Filtros</h3>
           <div>
             <label for="comercioIdFilter">Comercio ID:</label>
-            <input id="comercioIdFilter" type="number" [(ngModel)]="filters.comercioId" name="comercioIdFilter" (ngModelChange)="applyFilters()">
+            <select id="comercioIdFilter" [(ngModel)]="filters.comercioId" name="comercioIdFilter" (ngModelChange)="applyFilters()">
+              <option value="">Todos</option>
+              <option *ngFor="let comercio of comercios" [value]="comercio.id">{{comercio.nombre}}</option>
+            </select>
           </div>
           <div>
             <label for="fechaInicio">Fecha Inicio:</label>
             <input id="fechaInicio" type="date" [(ngModel)]="filters.fechaInicio" name="fechaInicio" (ngModelChange)="applyFilters()">
-          </div>
-          <div>
-            <label for="fechaFin">Fecha Fin:</label>
-            <input id="fechaFin" type="date" [(ngModel)]="filters.fechaFin" name="fechaFin" (ngModelChange)="applyFilters()">
           </div>
           <div>
             <label for="medioPagoFilter">Medio de Pago:</label>
@@ -71,7 +70,10 @@ import { CompraService, Compra } from './compra.service';
             </div>
             <div>
               <label for="comercioId">Comercio ID:</label>
-              <input id="comercioId" type="number" [(ngModel)]="newCompra.comercioId" name="comercioId" required>
+              <select id="comercioId" [(ngModel)]="selectedComercioId" name="comercioId" required>
+                <option value="">Seleccionar Comercio</option>
+                <option *ngFor="let comercio of comercios" [value]="comercio.id">{{comercio.nombre}}</option>
+              </select>
             </div>
             <button type="submit">{{ isEditing ? 'Actualizar' : 'Agregar' }}</button>
             <button type="button" (click)="cancelEdit()" *ngIf="isEditing">Cancelar</button>
@@ -119,6 +121,8 @@ export class CompraListComponent implements OnInit {
   filters: any = {};
   isEditing = false;
   editingId: number | null = null;
+  comercios: Comercio[] = [];
+  selectedComercioId: string = '';
 
   constructor(private compraService: CompraService) { }
 
@@ -141,6 +145,7 @@ export class CompraListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCompras();
+    this.loadComercios();
   }
 
   loadCompras(): void {
@@ -154,11 +159,16 @@ export class CompraListComponent implements OnInit {
     });
   }
 
+  loadComercios(): void {
+    this.compraService.getComercios().subscribe(data => {
+      this.comercios = data;
+    });
+  }
+
   applyLocalFilters(compras: Compra[]): Compra[] {
     return compras.filter(compra => {
-      if (this.filters.comercioId && compra.comercioId !== this.filters.comercioId) return false;
+      if (this.filters.comercioId && compra.comercioId !== +this.filters.comercioId) return false;
       if (this.filters.fechaInicio && new Date(compra.fecha) < new Date(this.filters.fechaInicio)) return false;
-      if (this.filters.fechaFin && new Date(compra.fecha) > new Date(this.filters.fechaFin)) return false;
       if (this.filters.medioPago && compra.medioPago !== this.filters.medioPago) return false;
       if (this.filters.comprador && !compra.comprador.toLowerCase().includes(this.filters.comprador.toLowerCase())) return false;
       return true;
@@ -175,7 +185,8 @@ export class CompraListComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.newCompra.fecha && this.newCompra.medioPago && this.newCompra.comprador && this.newCompra.montoTotal && this.newCompra.comercioId) {
+    if (this.newCompra.fecha && this.newCompra.medioPago && this.newCompra.comprador && this.newCompra.montoTotal && this.selectedComercioId) {
+      this.newCompra.comercioId = +this.selectedComercioId;
       if (this.isEditing && this.editingId) {
         this.compraService.updateCompra(this.editingId, this.newCompra).subscribe(() => {
           this.loadCompras();
@@ -185,6 +196,7 @@ export class CompraListComponent implements OnInit {
         this.compraService.createCompra(this.newCompra as Omit<Compra, 'id'>).subscribe(() => {
           this.loadCompras();
           this.newCompra = {};
+          this.selectedComercioId = '';
         });
       }
     }
@@ -198,6 +210,7 @@ export class CompraListComponent implements OnInit {
       comprador: this.decodeString(compra.comprador),
       comercioNombre: this.decodeString(compra.comercioNombre)
     };
+    this.selectedComercioId = compra.comercioId.toString();
   }
 
   deleteCompra(id: number): void {
@@ -212,5 +225,6 @@ export class CompraListComponent implements OnInit {
     this.isEditing = false;
     this.editingId = null;
     this.newCompra = {};
+    this.selectedComercioId = '';
   }
 }

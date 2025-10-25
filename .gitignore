@@ -199,13 +199,6 @@ $RECYCLE.BIN/
 # VS Code
 .vscode/
 
-# Sublime Text
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-*.sublime-workspace
-*.sublime-project
-
 # Database
 *.db
 *.sqlite
@@ -220,95 +213,10 @@ $RECYCLE.BIN/
 # Debug
 *.pdb
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-
-# Minified
-*.min.css
-*.min.js
-
-# Compressed
-*.7z
-*.dmg
-*.gz
-*.iso
-*.rar
-*.tar
-*.zip
-
-# PDFs
-*.pdf
-
-# Word
-*.doc
-*.docx
-*.rtf
-
-# Excel
-*.xls
-*.xlsx
-
-# PowerPoint
-*.ppt
-*.pptx
-
-# Images
-*.bmp
-*.gif
-*.ico
-*.jpg
-*.jpeg
-*.png
-*.svg
-*.tif
-*.tiff
-*.webp
-
-# Videos
-*.avi
-*.flv
-*.mov
-*.mp4
-*.mpg
-*.wmv
-
-# Audio
-*.flac
-*.mp3
-*.ogg
-*.wav
-*.wma
-
-# Archives
-*.7z
-*.bz2
-*.gz
-*.rar
-*.tar
-*.xz
-*.zip
-*.z
-
-# Fonts
-*.eot
-*.otf
-*.ttf
-*.woff
-*.woff2
-
-# Other
-*.bak
-*.orig
-*.rej
-*.swp
-*.tmp
-*~
 
 # Project specific
-backend/target/
 frontend/node_modules/
-frontend/dist/
+
 *.log
 .DS_Store
 Thumbs.db

@@ -13,6 +13,12 @@ export interface Compra {
   comercioNombre: string;
 }
 
+export interface Comercio {
+  id: number;
+  nombre: string;
+  lugar: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,5 +53,9 @@ export class CompraService {
 
   getComprasByMedioPago(comercioId: number, medioPago: string): Observable<Compra[]> {
     return this.http.get<Compra[]>(`${this.apiUrl}/compras/comercio/${comercioId}/medio-pago/${medioPago}`);
+  }
+
+  getComercios(): Observable<Comercio[]> {
+    return this.http.get<Comercio[]>(`${this.apiUrl}/comercios`);
   }
 }
