@@ -306,7 +306,7 @@ spring.jpa.hibernate.ddl-auto=validate
 ### URLs de Acceso
 - **Aplicación Frontend**: http://localhost:4200
 - **API Backend**: http://localhost:8082/api
-- **Documentación API**: http://localhost:8082/swagger-ui.html (si está habilitado)
+
 
 ### Verificación de Servicios
 ```bash
