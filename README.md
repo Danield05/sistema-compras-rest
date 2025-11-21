@@ -47,7 +47,7 @@ Sistema completo para la gestión de compras en comercios, desarrollado con Spri
 
 ### Base de Datos
 - **Motor**: Microsoft SQL Server Express 2019+
-- **Instancia**: LAPTOP-LH6S993U\SQLEXPRESS (configurable)
+- **Instancia**: LAPTOP-"TU_LAPTOP"\SQLEXPRESS (configurable)
 - **Base de datos**: SistemaCompras (creada automáticamente por Hibernate)
 - **Esquema**: 2 tablas (Comercio, Compra) con relación 1:N y foreign key
 - **Configuración**: Usuario sa con contraseña Admin123456 (configurable)
