@@ -85,7 +85,7 @@ cd sistema-compras-rest
     ```properties
     spring.datasource.username=sa
     spring.datasource.password=Admin123456
-    spring.datasource.url=jdbc:sqlserver://LAPTOP-LH6S993U\\SQLEXPRESS;databaseName=SistemaCompras;encrypt=true;trustServerCertificate=false
+    spring.datasource.url=jdbc:sqlserver://LAPTOP-"TU_LAPTOP"\\SQLEXPRESS;databaseName=SistemaCompras;encrypt=true;trustServerCertificate=false
     ```
 3. Compilar y ejecutar:
 ```bash
