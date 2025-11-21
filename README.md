@@ -27,7 +27,7 @@ Sistema completo para la gestión de compras en comercios, desarrollado con Spri
 ### Backend (Spring Boot)
 - **Framework**: Spring Boot 3.2.0 con Spring Boot Starter Parent
 - **Java**: OpenJDK 17 (Temurin recomendado)
-- **Base de datos**: Microsoft SQL Server Express 2019+ con instancia LAPTOP-LH6S993U\SQLEXPRESS
+- **Base de datos**: Microsoft SQL Server Express 2019+ con instancia LAPTOP-"TU_LAPTOP"\SQLEXPRESS
 - **ORM**: JPA/Hibernate con Spring Data JPA
 - **API**: REST con Spring Web MVC y HttpMessageConverters
 - **Validación**: Bean Validation 3.0 con Hibernate Validator
